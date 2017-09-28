@@ -48,18 +48,41 @@ export default class newImageGallery extends Component {
       ]
     };
   }
-  scrollingto(e) {
-    console.log(e)
+  scrollingto(event) {
+      console.log(event.nativeEvent.contentOffset)
+
+          this.refs._scrollView2.scrollTo({x:event.nativeEvent.contentOffset.x})
+
+      console.log('this', this.refs._scrollView2);
   }
-  render() {
+
+
+    scrollingto2(event) {
+        console.log(event.nativeEvent.contentOffset)
+
+        this.refs._scrollView1.scrollTo({x:event.nativeEvent.contentOffset.x})
+
+        console.log('this', this.refs._scrollView2);
+    }
+
+    render() {
     return (
       <View style={styles.container}>
         {/* <ImageCarousell
           dataSource={this.state.dataSource}
         /> */}
+     <View style={{flex:3, marginTop:60}}>
+       <ScrollView horizontal={true} onScroll={this.scrollingto2.bind(this)} ref='_scrollView2'>
+      {_.map([1,2,3,4,5,6,7,8], function () {
 
+          return (
+              <View style={{width:300, backgroundColor:'red', height:300, marginLeft:10}}/>
+          )
+      })}
+      </ScrollView>
+      </View>
 
-      <View style={{position:'absolute', bottom:0, marginBottom:10}}>
+      <View style={{position:'absolute', bottom:0, marginBottom:10, flex:1}}>
         <ScrollView horizontal={true} onScroll={this.scrollingto.bind(this)} ref='_scrollView1'>
           {_.map([1,2,3,4,5,6,7,8], function () {
 
@@ -69,6 +92,9 @@ export default class newImageGallery extends Component {
           })}
         </ScrollView>
       </View>
+        <View style={{width:105, height: 120, borderWidth: 2, borderColor:'green'}}>
+
+        </View>
       </View>
     );
   }
